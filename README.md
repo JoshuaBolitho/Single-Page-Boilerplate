@@ -20,16 +20,16 @@ $ npm install
 
 #### Instructions :
 
-To begin serving the site at localhost:3000, with live reload, type:
+To begin serving the site at localhost:3000, with live reload:
 
 ```sh
-grunt serve
+gulp serve
 ```
 
 Or if you prefer to build manually:
 
 ```sh
-grunt build
+gulp build
 ```
 
 #### License :
