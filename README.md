@@ -5,7 +5,7 @@ Front-end boilerplate with a bunch of helpful build tasks for getting up and run
 #### Key features :
 
   - ES6 module support using [babel] and [browserify].
-  - [SASS] for CSS preprocessing and [autoprefixer] post processor.
+  - [SASS] for CSS preprocessing and [autoprefixer] as a post processor.
   - [Browsersync] for serving the site locally, with auto reloads on file changes.
 
 #### Installation :
@@ -29,7 +29,7 @@ gulp serve
 Or if you prefer to build manually:
 
 ```sh
-gulp build
+gulp build-dev or gulp build-production
 ```
 
 #### License :
