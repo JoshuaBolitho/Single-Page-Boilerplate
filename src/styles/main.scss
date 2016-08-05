@@ -1,0 +1,29 @@
+@import "utils/reset.scss";
+
+body {
+    background:#000000;
+    color: #FFFFFF;
+    overflow: hidden;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+#appSections {
+    position:absolute;
+    width:100%;
+    height:100%;
+}
+
+    section {
+       position:absolute;
+       overflow:hidden;
+       width:100%;
+       height:100%;
+    }
+
+
+@import 'sections/home';
+@import 'sections/projects';
+@import 'sections/contact';
+
+@import 'ui/menu';
+@import 'ui/preloader';

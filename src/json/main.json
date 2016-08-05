@@ -1,0 +1,36 @@
+{
+	"sections": {
+		
+		"home": {
+			"settings": {
+				"section_inactive": false,
+				"remove_from_menu": false,
+				"menu_alias": false
+			},
+			"html": {
+				"section_label": "HOME"
+			}
+		},
+
+		"projects": {
+			"settings": {
+				"section_inactive": false,
+				"remove_from_menu": false,
+				"menu_alias": "projects alias"
+			},
+			"html": {
+				"section_label": "PROJECTS"
+			}
+		},
+
+		"contact": {
+			"settings": {
+				"section_active": false,
+				"remove_from_menu": false,
+				"menu_alias": false
+			},
+			"html": {
+			}
+		}
+	}
+}

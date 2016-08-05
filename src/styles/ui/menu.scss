@@ -1,0 +1,22 @@
+#appMenu {
+	
+	position:absolute;
+	width:100%;
+
+	.menu-link-list {
+
+		position:absolute;
+		width:160px;
+
+		li {
+			cursor:pointer;
+			text-align: center;
+			padding:10px 20px;
+			background: #333;
+
+			&:hover {
+				background:#555;
+			}
+		}
+	}
+}
