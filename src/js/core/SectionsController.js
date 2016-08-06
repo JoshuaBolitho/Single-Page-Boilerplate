@@ -12,6 +12,7 @@ import config from 'config/Config';
 // dynamic factory for getting section classes, including 
 // internally  used ones, like preloader and 404.
 import SectionFactory from 'core/SectionFactory';
+import EventEmitter from 'events';
 
 
 const STATE_BOOT = 0;
@@ -19,10 +20,12 @@ const STATE_IDLE = 1;
 const STATE_PRELOAD = 2;
 const STATE_TRANSITION = 3;
 
-class SectionsController {
+class SectionsController extends EventEmitter {
 
     
     constructor (sectionsData) {
+
+        super();
 
         this._state = STATE_BOOT;
 
@@ -55,6 +58,7 @@ class SectionsController {
     startPreloader (sectionId, list, callback) {
 
         this._state = STATE_PRELOAD;
+        this.emit('PRELOAD_ENTER');
 
         // initialize per first request
         if (!this.preloader.initialized) {
@@ -72,6 +76,8 @@ class SectionsController {
         
         // async callback for when all the files load.
         this.preloader.prepLoadList(list, function () {
+
+            this.emit('PRELOAD_EXIT');
 
             // callback is createSections(), now that 
             // everything has been loaded for requested 
@@ -101,9 +107,6 @@ class SectionsController {
 
             // current section's data
             sectionData = this.sectionsData[sectionId];
-
-            // keeps the JSON from needing a redundant parameter.
-            sectionData.id = sectionId;
 
             // create section wrapper now to prevent having go through background-loading
             // HTML strings to dummy elements, just to be able append HTML. This also prevents
@@ -173,8 +176,8 @@ class SectionsController {
         var prevSection = this.currentSection;
         var currentSection = this.sectionsMap[ this.sectionsKey[sectionId] ];
 
-        // checks to see if
-        this.currentSection = this.prepSection(sectionId, currentSection);
+        // checks to see if section/sections need initialization or preloadeding
+        this.currentSection = (!config.bulk_preload) ? this.prepSection(sectionId, currentSection) : this.prepBulkSections(sectionId); 
 
         // add back to render list and trigger section intro
         this.currentSection.displayOn();
@@ -196,6 +199,55 @@ class SectionsController {
             this._state = STATE_IDLE;
 
         }.bind(this), config.section_transition_duration);
+    }
+
+
+    /*******************************************************
+    ** 
+    **  Rather than initializing/preloading sections per 
+    **  request, just do them all up front.
+    **
+    *******************************************************/
+
+    prepBulkSections (id, section) {
+
+        var list = {
+            count:0,
+            images: []
+        };
+        
+        // make sure buld load doesnt get triggered again.
+        config.bulk_preload = false;
+
+        for (var i = 0; i < this.sectionsMap.length; i++) {
+
+            // make sure all sections are initialized and DOM layout is all set.
+            if (!this.sectionsMap[i].initialized) {
+                this.sectionsMap[i].initialize();
+            }
+            
+            // merge all sections preloadable assets into a single load list object.
+            if (this.sectionsMap[i].preloadList) {
+
+                list.count += this.sectionsMap[i].preloadList.count;
+
+                if (this.sectionsMap[i].preloadList.images.length > 0) {
+                    list.images = list.images.concat(this.sectionsMap[i].preloadList.images);
+                }
+            }
+            
+            // if there are assets, send the bulk object for preload
+            if (list.count > 0) {
+
+                // play the preload cycle and then call change section to complete the task.
+                this.startPreloader(id, list, this.changeSection.bind(this));
+
+                // change section to prelaoder
+                section = this.preloader;
+            }
+        }
+
+        return section;
     }
 
 
@@ -246,6 +298,7 @@ class SectionsController {
         this.viewContainer.style.width = w + 'px';
         this.viewContainer.style.height = h + 'px';
 
+        // TODO: should be switched to active sections only
         for (var i = 0, l = this.sectionsMap.length; i < l; i++) {
             this.sectionsMap[i].resize(w, h);
         }

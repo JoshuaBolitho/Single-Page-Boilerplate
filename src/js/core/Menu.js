@@ -18,7 +18,6 @@ class Menu extends EventEmitter {
 		this.menuData = { 'sections': this.formatSectionData(sectionData) };
 		this.html = template.render(this.menuData);
 		this.populateDOM();
-
 		this.currentSection = entrySection;
 	}
 
@@ -47,7 +46,7 @@ class Menu extends EventEmitter {
 		var _this = this;
 		for (var i = 0; i < this.listItems.length; i++) {
 			this.listItems[i].addEventListener('click', function(e) {
-				_this.emit('SectionSelect', this.dataset.section);		
+				_this.emit('SECTION_SELECT', this.dataset.section);
 				_this.on_LIST_ITEM_CLICK(e, this);
 			});
 		}
@@ -129,11 +128,13 @@ class Menu extends EventEmitter {
 	}
 
 	show () {
-
+		this.el.style.display = 'inline-block'
+		this.el.style.visibility = 'visible';
 	}
 
 	hide () {
-
+		this.el.style.display = 'none';
+		this.el.style.visibility = 'hidden';
 	}
 
 	resize (w, h) {

@@ -152,7 +152,7 @@ class Router extends EventEmitter {
 
 		section = this._validateRoute(section);
 
-		this.emit('SectionChange', section);
+		this.emit('ROUTE_CHANGE', section);
 	}
 
 }

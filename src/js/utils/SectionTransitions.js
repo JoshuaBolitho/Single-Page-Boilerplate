@@ -36,7 +36,7 @@ var SectionTransitions = {
         }
     },
 
-    SlideLeftToRight: function (next, prev, callback, duration) {
+    SlideRightToLeft: function (next, prev, callback, duration) {
 
         var duration = validateDuration(duration);
         var w = window.innerWidth;
@@ -55,6 +55,21 @@ var SectionTransitions = {
         var w = window.innerWidth;
 
         TweenMax.fromTo(next.parentEl, duration, {zIndex:0, x:-w}, {x:0, ease:Power4.in, onComplete:callback});
+
+        // first transition will not have a previous section
+        if (prev) {
+            TweenMax.fromTo(prev.parentEl, duration, {zIndex:-1}, {ease:Power4.in, onComplete:function(){
+                TweenMax.set(prev.parentEl, {zIndex:0});
+            }});
+        }
+    },
+
+    CoverFade: function (next, prev, callback, duration) {
+
+        var duration = validateDuration(duration);
+        var w = window.innerWidth;
+
+        TweenMax.fromTo(next.parentEl, duration, {zIndex:0, alpha:0}, {alpha:1, ease:Power4.in, onComplete:callback});
 
         // first transition will not have a previous section
         if (prev) {

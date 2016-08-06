@@ -17,13 +17,13 @@ class DefaultMenu extends Menu {
 		super(sectionData, entrySection, template);
 	}
 
-	show () {
+	// show () {
 
-	}
+	// }
 
-	hide () {
+	// hide () {
 
-	}
+	// }
 
 	setSection (section) {
 		console.log("SET SECTION MENU", section);

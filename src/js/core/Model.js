@@ -75,8 +75,7 @@ class Model {
 
 	/*************************************************
 	**	
-	**	Organize data into smaller chunks for better
-	**	performance.
+	**	Organize data into smaller typed chunks 
 	**
 	*************************************************/
 
@@ -96,9 +95,12 @@ class Model {
 	_filterActiveSections (sectionsData) {
 
 		for (var section in sectionsData) {
+
 			if (sectionsData[section].settings.section_inactive) {
 				delete sectionsData[section];
 			}
+
+			sectionsData[section].id = section;
 		}
 
 		return sectionsData;

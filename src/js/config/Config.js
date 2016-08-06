@@ -12,9 +12,9 @@ const SETTINGS = {
 	sections_container_id: 'appSections',						// container in index.html for sections/pages.
 	menu_container_id: 'appMenu',								// container menu UI
 	json_url: 'json/main.json', 								// JSON location
-bulk_preload: false,										// preload all sections up front
+	bulk_preload: true,											// preload all sections up front
 	section_transition: SectionTransitions.CoverLeftToRight,	// transition preset
-	section_transition_duration: 0.4,							// legnth of section transition
+	section_transition_duration: 0.5,							// legnth of section transition
 	section_classes: {											// map of section classes. Gets pulled into dynamic class, "SectionsFactory.js"
 		home, 
 		projects,
