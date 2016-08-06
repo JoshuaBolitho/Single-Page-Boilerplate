@@ -5,8 +5,8 @@ Front-end boilerplate with a bunch of helpful build tasks for getting up and run
 #### Key features :
 
   - ES6 module support using [babel] and [browserify].
-  - [SASS] for CSS preprocessing and [autoprefixer] as a post processor.
-  - [Browsersync] for serving the site locally, with auto reloads on file changes.
+  - [SASS] for CSS preprocessing and [autoprefixer] for handling browser vendor prefixes.
+  - [Browsersync] for serving the site locally, with auto reload set on file changes.
 
 #### Installation :
 
@@ -20,7 +20,7 @@ $ npm install
 
 #### Instructions :
 
-To begin serving the site at localhost:3000, with live reload:
+To begin serving the site from localhost:3000
 
 ```sh
 gulp serve
