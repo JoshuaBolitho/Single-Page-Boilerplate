@@ -7,6 +7,8 @@
 **
 *******************************************************/
 
+import config from 'config/Config';
+
 import Section from 'core/Section';
 import BulkLoader from 'utils/BulkLoader';
 
@@ -17,6 +19,7 @@ class Preloader extends Section {
     constructor (id, data, template) {
 
         console.log('\nPRELOADER CONSTRUCTOR');
+        console.log('- batch preload:', config.bulk_preload);
 
         super(id, data, template);
     }

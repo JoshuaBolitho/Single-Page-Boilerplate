@@ -1,22 +1,54 @@
 #appMenu {
-	
-	position:absolute;
-	width:100%;
+    
+    position:absolute;
+    width:100%;
 
-	.menu-link-list {
+    .menu-link-list {
 
-		position:absolute;
-		width:160px;
+        position:absolute;
+        width:160px;
+        font-size: 12px;
 
-		li {
-			cursor:pointer;
-			text-align: center;
-			padding:10px 20px;
-			background: #333;
+        li {
 
-			&:hover {
-				background:#555;
-			}
-		}
-	}
+            cursor:pointer;
+            text-align: left;
+            padding:1em 2em;
+            line-height: 1em;
+            background: #333;
+            &:before {
+                content: " ";
+                display:inline-block;
+                width:0.25em;
+                height:1em;
+                margin: 0em 0.3em -0.06em 0;
+                background: #737373;
+            }
+
+            &.menu-item-default {
+
+                &:hover {
+
+                    background:#3B3B3B;
+
+                    &:before {
+                        background: #888;
+                    }
+                }
+            }
+
+            &.menu-item-active {
+
+                background: #555;
+
+                &:before {
+                    background: #B3B3B3;
+                }
+
+                &:hover {
+                    background: #555;
+                }
+            }
+        }
+    }
 }

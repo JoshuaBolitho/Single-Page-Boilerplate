@@ -25,13 +25,9 @@ class DefaultMenu extends Menu {
 
 	// }
 
-	setSection (section) {
-		console.log("SET SECTION MENU", section);
-	}
-
-	on_LIST_ITEM_CLICK (e, target) {
-		console.log("LIST ITEM CLICK MENU", target.dataset.section);
-	}
+	// setSection (section) {
+	// 	console.log("SET SECTION MENU", section);
+	// }
 
 	resize (w, h) {
 

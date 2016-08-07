@@ -74,14 +74,13 @@ class SectionsController extends EventEmitter {
             this.preloader.initialize();
         }
         
-        // async callback for when all the files load.
+        // async callback for when all the files load
         this.preloader.prepLoadList(list, function () {
 
             this.emit('PRELOAD_EXIT');
 
-            // callback is createSections(), now that 
-            // everything has been loaded for requested 
-            // section.
+            // Callback is createSections(), now that everything
+            // has been loaded for requested section.
             if (callback) callback(sectionId);
 
         }.bind(this));
@@ -123,7 +122,7 @@ class SectionsController extends EventEmitter {
             if (section.id) {
 
                 // SectionController creates top section element, but sections classes
-                // need reference to it to inject HTML themselved.
+                // need reference to it to inject HTML themselves.
                 if (section.assignParentContainer) section.assignParentContainer(sectionEl);
 
                 // add section wrapper to DOM

@@ -5,7 +5,7 @@
 			"settings": {
 				"section_inactive": false,
 				"remove_from_menu": false,
-				"menu_alias": false
+				"menu_alias": "Home"
 			},
 			"html": {
 				"section_label": "HOME"
@@ -16,7 +16,7 @@
 			"settings": {
 				"section_inactive": false,
 				"remove_from_menu": false,
-				"menu_alias": "projects alias"
+				"menu_alias": "Projects"
 			},
 			"html": {
 				"section_label": "PROJECTS"
@@ -25,9 +25,9 @@
 
 		"contact": {
 			"settings": {
-				"section_active": false,
+				"section_inactive": false,
 				"remove_from_menu": false,
-				"menu_alias": false
+				"menu_alias": "Contact"
 			},
 			"html": {
 			}

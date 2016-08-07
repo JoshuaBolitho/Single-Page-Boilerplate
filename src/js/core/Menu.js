@@ -7,6 +7,8 @@
 import config from 'config/Config';
 import EventEmitter from 'events';
 
+const MENU_DEFAULT_CLASS_NAME = ' menu-item-default';
+const MENU_ACTIVE_CLASS_NAME = ' menu-item-active';
 
 class Menu extends EventEmitter {
 
@@ -18,7 +20,8 @@ class Menu extends EventEmitter {
 		this.menuData = { 'sections': this.formatSectionData(sectionData) };
 		this.html = template.render(this.menuData);
 		this.populateDOM();
-		this.currentSection = entrySection;
+
+		this.setSection(entrySection);
 	}
 
 
@@ -45,9 +48,9 @@ class Menu extends EventEmitter {
 		// add mouse events to list items
 		var _this = this;
 		for (var i = 0; i < this.listItems.length; i++) {
+			this.listItems[i].className = MENU_DEFAULT_CLASS_NAME;
 			this.listItems[i].addEventListener('click', function(e) {
-				_this.emit('SECTION_SELECT', this.dataset.section);
-				_this.on_LIST_ITEM_CLICK(e, this);
+				_this.emit('MENU_SELECT', this.dataset.section);
 			});
 		}
 	}
@@ -85,7 +88,8 @@ class Menu extends EventEmitter {
 	/*******************************************************
 	**	
 	**	checks to see if section has been configured to use
-	**	a custom menu label
+	**	a custom menu label, or the default one: lowercase
+	**	section naming in JSON.
 	**
 	*******************************************************/
 
@@ -106,26 +110,55 @@ class Menu extends EventEmitter {
 	/*******************************************************
 	**	
 	**	Menu does not directly alter itself, instead all
-	**	visual updates are triggered by router.
+	**	visual updates are triggered by Router.js, which
+	**	calls this function after successful assigning a 
+	**	new route.
 	**
 	*******************************************************/
 
-	setSection (section) {
+	setSection (sectionID) {
 
-		this.currentSection = section;
+		this.currentListItem = this.getListItemByDataID(sectionID);
+		
+		this.setActiveStyleRule(this.currentListItem);
+		if (this.previousListItem) this.setDefaultStyleRule(this.previousListItem);
+		
+		this.previousListItem = this.currentListItem;
 	}
 
 
 	/*******************************************************
 	**	
-	**	menu link click event to be overwritten by 
-	**	inheriting class.
+	**	Iterates through all the menu list items and returns
+	**	the one with the matching dataID
 	**
 	*******************************************************/
 
-	on_LIST_ITEM_CLICK (e, target) {
+	getListItemByDataID (dataID) {
 
+		for (var i = 0; i < this.listItems.length; i++) {
+
+			if (this.listItems[i].dataset.section === dataID) {
+				return this.listItems[i];
+			}
+		}
 	}
+
+
+	/*******************************************************
+	**	
+	**	For coordinating with CSS
+	**
+	*******************************************************/
+
+	setActiveStyleRule (listItem) {
+		listItem.className = MENU_ACTIVE_CLASS_NAME;
+	}
+
+	setDefaultStyleRule (listItem) {
+		listItem.className = MENU_DEFAULT_CLASS_NAME;
+	}
+
 
 	show () {
 		this.el.style.display = 'inline-block'

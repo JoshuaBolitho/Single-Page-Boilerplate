@@ -46,7 +46,7 @@ class App {
         this.router.on('ROUTE_CHANGE', this.on_ROUTE_CHANGE.bind(this));
 
         this.menu = new Menu(this.model.sections, this.router.getRoute());
-        this.menu.on('SECTION_SELECT', this.router.navigate.bind(this.router));
+        this.menu.on('MENU_SELECT', this.router.navigate.bind(this.router));
 
         this.sectionsController = new SectionsController(this.model.sections);
         this.sectionsController.on('PRELOAD_ENTER', this.on_PRELOAD_ENTER.bind(this));

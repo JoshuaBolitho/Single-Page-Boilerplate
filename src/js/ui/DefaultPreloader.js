@@ -23,7 +23,7 @@ class DefaultPreloader extends Preloader {
     }
 
     on_LOAD_PROGRESS (perc) {
-        console.log('PROGRESS --------<>', perc);
+        console.log('- progress:',  perc);
     }
 
     on_LOAD_COMPLETE () {
