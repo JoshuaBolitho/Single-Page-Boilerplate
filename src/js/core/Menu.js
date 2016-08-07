@@ -27,8 +27,8 @@ class Menu extends EventEmitter {
 
 	/*******************************************************
 	**	
-	**	Add main container, rendered template, and list 
-	**	item listeners
+	**	Add main container, rendered template, and set list 
+	**	item event listeners.
 	**
 	*******************************************************/
 
@@ -118,12 +118,21 @@ class Menu extends EventEmitter {
 
 	setSection (sectionID) {
 
-		this.currentListItem = this.getListItemByDataID(sectionID);
+		if (sectionID !== '404') {
+
+			this.currentListItem = this.getListItemByDataID(sectionID);
 		
-		this.setActiveStyleRule(this.currentListItem);
-		if (this.previousListItem) this.setDefaultStyleRule(this.previousListItem);
+			this.setActiveStyleRule(this.currentListItem);
+			if (this.previousListItem) this.setDefaultStyleRule(this.previousListItem);
+			
+			this.previousListItem = this.currentListItem;	
 		
-		this.previousListItem = this.currentListItem;
+		} else {
+
+			// TODO: Some sort of 404 behavior; probably just remove active from all
+
+		}
+		
 	}
 
 

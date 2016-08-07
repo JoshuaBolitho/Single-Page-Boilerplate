@@ -26,13 +26,13 @@ class SectionsController extends EventEmitter {
     constructor (sectionsData) {
 
         super();
+        
+        console.log('\nSECTION CONTROLLER CONSTRUCTOR');
 
         this._state = STATE_BOOT;
 
         // all the dynamic data for the page
         this.sectionsData = sectionsData;
-
-        console.log('\nSECTION CONTROLLER CONSTRUCTOR');
 
         // top element for all section views
         this.viewContainer = document.getElementById(config.sections_container_id);
@@ -43,6 +43,7 @@ class SectionsController extends EventEmitter {
 
         // preloader gets treated like a silent section. In fact, it inherits from section
         this.preloader = new SectionFactory('preloader', {});
+        this.pagenotfound = new SectionFactory('pagenotfound', {});
 
         // idle state
         this._state = STATE_IDLE;
@@ -84,6 +85,29 @@ class SectionsController extends EventEmitter {
             if (callback) callback(sectionId);
 
         }.bind(this));
+    }
+
+
+    /*******************************************************
+    ** 
+    **
+    **
+    *******************************************************/
+
+    start404 (sectionId) {
+
+        if (!this.pagenotfound.initialized) {
+
+            var sectionEl = document.createElement('section');
+            sectionEl.style.visibility = 'hidden';
+            sectionEl.style.display = 'none';
+            sectionEl.id = 'pagenotfound';
+
+            this.viewContainer.appendChild(sectionEl);
+
+            this.pagenotfound.assignParentContainer(sectionEl);
+            this.pagenotfound.initialize();
+        }
     }
 
 
@@ -166,9 +190,9 @@ class SectionsController extends EventEmitter {
     changeSection (sectionId) {
 
         // TODO: Need to handle 404 pages
-        if (sectionId === '404') {
-            sectionId = 'home';
-        }
+        // if (sectionId === '404') {
+        //     sectionId = 'pagenotfound';
+        // }
 
         this._state = STATE_TRANSITION;
 
@@ -259,6 +283,11 @@ class SectionsController extends EventEmitter {
     *******************************************************/
 
     prepSection (id, section) {
+
+        if (id === '404') {
+            this.start404(id);
+            section = this.pagenotfound;
+        }
 
         // sets HTML to wrapper if not already done, since this is done at first request.
         if (!section.initialized) {

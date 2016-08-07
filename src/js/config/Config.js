@@ -4,6 +4,8 @@ import projects from 'sections/Projects';
 import contact from 'sections/Contact';
 
 import preloader from 'ui/DefaultPreloader';
+import pagenotfound from 'ui/404';
+
 import SectionTransitions from 'utils/SectionTransitions';
 
 
@@ -21,7 +23,8 @@ const SETTINGS = {
 		contact
 	},
 	internal_section_classes: {
-		preloader
+		preloader,
+		pagenotfound
 	}
 };
 

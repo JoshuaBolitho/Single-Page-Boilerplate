@@ -148,9 +148,11 @@ class Router extends EventEmitter {
 	**
 	*************************************************/
 
-	on_STATE_CHANGE (section) {
+	on_STATE_CHANGE (section, url) {
+		
+		var path = this.getURLPaths()[1];
 
-		section = this._validateRoute(section);
+		section = this._validateRoute(path);
 
 		this.emit('ROUTE_CHANGE', section);
 	}

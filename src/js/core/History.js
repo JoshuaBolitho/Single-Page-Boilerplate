@@ -84,9 +84,9 @@ class History {
 
 		// Log the State
 		var State = historyHTML5.getState();
-		//historyHTML5.log('statechange:', State.data, State.title, State.url);
+		historyHTML5.log('statechange:', State.data, State.title, State.url);
 
-		if (this._stateChangeCallbackFn) this._stateChangeCallbackFn(State.title);
+		if (this._stateChangeCallbackFn) this._stateChangeCallbackFn(State.title, State.url);
 	}
 
 }
