@@ -203,7 +203,7 @@ function serve () {
     // Watches for updates in json/main.json
     gulp.watch(SOURCE_PATH + '/json/main.json', ['watch-json']);
     
-    // Watches for changes in files inside the './static' folder. Also sets 'keepFiles' to true (see cleanBuild()).
+    // Watches for changes in files inside the 'assets' folder. Also sets 'keepFiles' to true (see cleanBuild()).
     gulp.watch(ASSET_SOURCE_PATH + '/**/*', ['watch-assets']);
 }
 
